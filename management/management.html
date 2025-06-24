@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Gerenciamento - Lojinha Distrital</title>
+    <link rel="icon" href="../img/ICfavicon.png">
+    <link rel="stylesheet" href="management.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <a href="../index.html">
+            <img src="../img/logoCom.png" alt="Logo Home" id="home-logo">
+        </a>
+        <h1>Painel de Gerenciamento</h1>
+        <div id="user-info">
+            <span id="manager-name"></span>
+            <button id="logout-btn" onclick="logoutUser()">Sair</button>
+        </div>
+    </header>
+
+    <!-- Menu de navegação do painel -->
+    <nav id="admin-menu">
+        <button class="tab-button active" data-tab="slides-tab">Gerenciar Slides</button>
+        <button class="tab-button" data-tab="products-tab">Gerenciar Produtos</button>
+        <button class="tab-button" data-tab="users-tab">Gerenciar Usuários</button>
+        <button class="tab-button" data-tab="orders-tab">Visualizar Pedidos</button>
+        <a href="../index.html" class="back-button">Voltar para o Site</a>
+    </nav>
+
+    <!-- Conteúdo principal -->
+    <main>
+        <!-- Tab de Gerenciamento de Slides -->
+        <section id="slides-tab" class="tab-content active">
+            <h2>Gerenciamento de Slides</h2>
+            <div class="action-bar">
+                <button id="add-slide-btn" class="add-btn">+ Adicionar Novo Slide</button>
+            </div>
+            
+            <div id="slides-container" class="cards-container">
+                <!-- Os slides serão injetados aqui pelo JavaScript -->
+            </div>
+
+            <!-- Modal para adicionar/editar slide -->
+            <div id="slide-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h3 id="slide-modal-title">Adicionar Slide</h3>
+                    <form id="slide-form">
+                        <input type="hidden" id="slide-index">
+                        <div class="form-group">
+                            <label for="slide-titulo">Título:</label>
+                            <input type="text" id="slide-titulo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="slide-descricao">Descrição:</label>
+                            <textarea id="slide-descricao" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="slide-has-button">Adicionar Botão:</label>
+                            <input type="checkbox" id="slide-has-button">
+                        </div>
+                        <div id="button-details" style="display: none;">
+                            <div class="form-group">
+                                <label for="slide-button-text">Texto do Botão:</label>
+                                <input type="text" id="slide-button-text">
+                            </div>
+                            <div class="form-group">
+                                <label for="slide-button-link">Link do Botão:</label>
+                                <input type="text" id="slide-button-link">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Salvar</button>
+                            <button type="button" class="cancel-btn">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab de Gerenciamento de Produtos -->
+        <section id="products-tab" class="tab-content">
+            <h2>Gerenciamento de Produtos</h2>
+            <div class="action-bar">
+                <button id="add-product-btn" class="add-btn">+ Adicionar Novo Produto</button>
+            </div>
+            
+            <div id="products-container" class="cards-container">
+                <!-- Os produtos serão injetados aqui pelo JavaScript -->
+            </div>
+
+            <!-- Modal para adicionar/editar produto -->
+            <div id="product-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h3 id="product-modal-title">Adicionar Produto</h3>
+                    <form id="product-form">
+                        <input type="hidden" id="product-index">
+                        <div class="form-group">
+                            <label for="product-nome">Nome do Produto:</label>
+                            <input type="text" id="product-nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-preco">Preço (R$):</label>
+                            <input type="number" id="product-preco" min="0" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-imagem">URL da Imagem:</label>
+                            <input type="text" id="product-imagem" required>
+                            <small>Formato: img/nome-da-imagem.png</small>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Salvar</button>
+                            <button type="button" class="cancel-btn">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab de Gerenciamento de Usuários -->
+        <section id="users-tab" class="tab-content">
+            <h2>Gerenciamento de Usuários</h2>
+            <div class="action-bar">
+                <button id="add-user-btn" class="add-btn">+ Adicionar Novo Usuário</button>
+            </div>
+            
+            <div class="table-container">
+                <table id="users-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Tipo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Os usuários serão injetados aqui pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal para adicionar/editar usuário -->
+            <div id="user-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h3 id="user-modal-title">Adicionar Usuário</h3>
+                    <form id="user-form">
+                        <input type="hidden" id="user-id">
+                        <div class="form-group">
+                            <label for="user-nome">Nome:</label>
+                            <input type="text" id="user-nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-email">Email:</label>
+                            <input type="email" id="user-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-password">Senha:</label>
+                            <input type="password" id="user-password" minlength="6" required>
+                            <small>Mínimo de 6 caracteres</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-type">Tipo de Usuário:</label>
+                            <select id="user-type" required>
+                                <option value="user">Usuário</option>
+                                <option value="manager">Gerente</option>
+                            </select>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Salvar</button>
+                            <button type="button" class="cancel-btn">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab de Visualização de Pedidos -->
+        <section id="orders-tab" class="tab-content">
+            <h2>Pedidos Realizados</h2>
+            
+            <div class="table-container">
+                <table id="orders-table">
+                    <thead>
+                        <tr>
+                            <th>ID do Pedido</th>
+                            <th>Cliente</th>
+                            <th>Data</th>
+                            <th>Produtos</th>
+                            <th>Valor Total</th>
+                            <th>Forma de Pagamento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Os pedidos serão injetados aqui pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { 
+            getAuth, 
+            onAuthStateChanged,
+            signOut
+        } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCvN0qpuv0anuHo1-8Kd80xTJuoQtk9GVI",
+            authDomain: "lojinha-27456.firebaseapp.com",
+            projectId: "lojinha-27456",
+            storageBucket: "lojinha-27456.firebasestorage.app",
+            messagingSenderId: "166218943964",
+            appId: "G-G7FZ8P5714"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Disponibilizar globalmente
+        window.firebaseAuth = auth;
+        window.firebaseApp = app;
+    </script>
+    
+    <script src="management.js" defer></script>
+</body>
+</html>

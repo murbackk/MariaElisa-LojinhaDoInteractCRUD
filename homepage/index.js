@@ -37,7 +37,7 @@ function updateSlide() {
     const btn = document.createElement("button");
     btn.textContent = "Acessar Catálogo";
     btn.classList.add("catalogo-btn");
-    btn.onclick = () => window.location.href = "/catalogo/catalogo.html";
+    btn.onclick = () => window.location.href = "../catalogo/catalogo.html";
     catalogoBtnContainer.appendChild(btn);
   }
 
